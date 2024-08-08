@@ -15,13 +15,41 @@ type Todo struct {
 	Description string `json:"description"`
 }
 
-func GetTodos(c *gin.Context) {
+func RenderTodos(c *gin.Context) {
 	var todos []Todo
 	if err := db.DB.Find(&todos).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, todos)
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"todos": todos,
+	})
+}
+
+// func GetTodos(c *gin.Context) {
+// 	var todos []Todo
+// 	if err := db.DB.Find(&todos).Error; err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, todos)
+
+// }
+
+func GetTodo(c *gin.Context) {
+	id := c.Param("id")
+	var todo Todo
+	if err := db.DB.First(&todo, id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		} else {
+			// Если произошла другая ошибка, возвращаем 500 статус с сообщением об ошибке
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+
+		}
+		return
+	}
+	c.JSON(http.StatusOK, todo)
 
 }
 
@@ -34,17 +62,6 @@ func CreateTodo(c *gin.Context) {
 	db.DB.Create(&newTodo)
 	c.JSON(http.StatusCreated, newTodo)
 }
-
-// func DeleteTodo(c *gin.Context) {
-// 	id := c.Param("id")
-// 	var todo Todo
-// 	if err := db.DB.First(&todo, id); err != nil {
-// 		c.Status(http.StatusNotFound)
-// 		return
-// 	}
-// 	db.DB.Delete(&todo)
-// 	c.Status(http.StatusNoContent)
-// }
 
 func DeleteTodo(c *gin.Context) {
 	id := c.Param("id")

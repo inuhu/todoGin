@@ -11,7 +11,11 @@ func main() {
 
 	r := gin.Default()
 
-	r.GET("/todos", todo.GetTodos)
+	r.LoadHTMLGlob("templates/*")
+
+	r.GET("/todos", todo.RenderTodos)
+	//r.GET("/todos", todo.GetTodos)
+	r.GET("/todo/:id", todo.GetTodo)
 	r.POST("/todos", todo.CreateTodo)
 	r.DELETE("/todos/:id", todo.DeleteTodo)
 	r.Run(":8080")
