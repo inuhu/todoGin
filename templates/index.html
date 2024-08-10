@@ -14,5 +14,16 @@
         <li>No tasks available</li>
         {{ end }}
     </ul>
+
+    <!-- Форма для добавления новой задачи -->
+    <form action="/todos" method="POST">
+        <label for="task">Task:</label>
+        <input type="text" id="task" name="task" required>
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description">
+        <br>
+        <button type="submit">Add Task</button>
+    </form>
 </body>
 </html>

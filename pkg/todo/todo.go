@@ -55,12 +55,10 @@ func GetTodo(c *gin.Context) {
 
 func CreateTodo(c *gin.Context) {
 	var newTodo Todo
-	if err := c.BindJSON(&newTodo); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"Error:": err.Error()})
-		return
-	}
+	newTodo.Task = c.PostForm("task")
+	newTodo.Description = c.PostForm("description")
 	db.DB.Create(&newTodo)
-	c.JSON(http.StatusCreated, newTodo)
+	c.Redirect(http.StatusFound, "/todos")
 }
 
 func DeleteTodo(c *gin.Context) {
