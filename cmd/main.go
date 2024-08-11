@@ -18,6 +18,6 @@ func main() {
 	//r.GET("/todos", todo.GetTodos)
 	r.GET("/todo/:id", todo.GetTodo)
 	r.POST("/todos", todo.CreateTodo)
-	r.DELETE("/todos/:id", todo.DeleteTodo)
+	r.POST("/delete/:id", todo.DeleteTodo)
 	r.Run(":8080")
 }

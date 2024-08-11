@@ -4,26 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
+    <!-- Подключаем внешний CSS-файл -->
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h1>Todo List</h1>
+
+    <!-- Форма добавления новой задачи -->
+    <form action="/todos" method="POST">
+        <label for="task">Task:</label>
+        <input type="text" id="task" name="task" required>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required>
+
+        <button type="submit">Add Todo</button>
+    </form>
+
+    <!-- Список задач -->
     <ul>
         {{ range .todos }}
-        <li>{{ .Task }}: {{ .Description }}</li>
+        <li>
+            <div class="todo-item">
+                <span>{{ .Task }}: {{ .Description }}</span>
+                <form action="/delete/{{ .ID }}" method="POST">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>  
+        </li>
         {{ else }}
         <li>No tasks available</li>
         {{ end }}
     </ul>
-
-    <!-- Форма для добавления новой задачи -->
-    <form action="/todos" method="POST">
-        <label for="task">Task:</label>
-        <input type="text" id="task" name="task" required>
-        <br>
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description">
-        <br>
-        <button type="submit">Add Task</button>
-    </form>
 </body>
 </html>
+
+

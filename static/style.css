@@ -12,23 +12,7 @@ body {
 
 h1 {
     margin-bottom: 20px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    width: 300px;
-}
-
-li {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 4px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 form {
@@ -64,6 +48,30 @@ button:hover {
     background-color: #0056b3;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 300px;
+}
+
+li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .delete-button {
     background-color: #dc3545;
     margin-left: 10px;
@@ -73,9 +81,11 @@ button:hover {
     background-color: #c82333;
 }
 
-.todo-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+li {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+

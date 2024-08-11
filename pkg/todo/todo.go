@@ -65,7 +65,6 @@ func DeleteTodo(c *gin.Context) {
 	id := c.Param("id")
 	var todo Todo
 
-	// Проверяем, существует ли запись
 	if err := db.DB.First(&todo, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{"error": "Todo not found"})
@@ -75,11 +74,10 @@ func DeleteTodo(c *gin.Context) {
 		return
 	}
 
-	// Удаляем запись и проверяем на ошибки
 	if err := db.DB.Delete(&todo).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.Status(http.StatusNoContent)
+	c.Redirect(http.StatusFound, "/todos")
 }
