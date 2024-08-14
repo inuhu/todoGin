@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Todo</title>
+    <link rel="stylesheet" href="/static/edit-styles.css">
+</head>
+<body>
+    <h1>Edit Todo</h1>
+
+    <form action="/update/{{ .todo.ID }}" method="POST">
+        <label for="task">Task:</label>
+        <input type="text" id="task" name="task" value="{{ .todo.Task }}" required>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" value="{{ .todo.Description }}" required>
+
+        <button type="submit">Update Todo</button>
+    </form>
+</body>
+</html>

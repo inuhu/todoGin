@@ -11,7 +11,7 @@
     <h1>Todo List</h1>
 
     <!-- Форма добавления новой задачи -->
-    <form action="/todos" method="POST">
+    <form action="/todos" method="POST" class="form-add">
         <label for="task">Task:</label>
         <input type="text" id="task" name="task" required>
 
@@ -30,7 +30,10 @@
                 <form action="/delete/{{ .ID }}" method="POST">
                     <button type="submit" class="delete-button">Delete</button>
                 </form>
-            </div>  
+                <form action="/edit/{{ .ID }}" method="GET">
+                    <button type="submit" class="edit-button">Edit</button>
+                </form>
+            </div>      
         </li>
         {{ else }}
         <li>No tasks available</li>

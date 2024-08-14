@@ -81,3 +81,39 @@ func DeleteTodo(c *gin.Context) {
 
 	c.Redirect(http.StatusFound, "/todos")
 }
+
+func EditTodoForm(c *gin.Context) {
+	id := c.Param("id")
+	var todo Todo
+
+	if err := db.DB.First(&todo, id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Todo not found"})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+		return
+	}
+	c.HTML(http.StatusOK, "edit.html", gin.H{
+		"todo": todo,
+	})
+
+}
+
+func UpdateTodo(c *gin.Context) {
+	id := c.Param("id")
+	var todo Todo
+	if err := db.DB.First(&todo, id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Not found"})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+	}
+	todo.Task = c.PostForm("task")
+	todo.Description = c.PostForm("description")
+
+	db.DB.Save(&todo)
+
+	c.Redirect(http.StatusFound, "/todos")
+}

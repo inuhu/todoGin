@@ -15,9 +15,10 @@ func main() {
 	r.LoadHTMLGlob("templates/*")
 
 	r.GET("/todos", todo.RenderTodos)
-	//r.GET("/todos", todo.GetTodos)
 	r.GET("/todo/:id", todo.GetTodo)
 	r.POST("/todos", todo.CreateTodo)
 	r.POST("/delete/:id", todo.DeleteTodo)
+	r.GET("/edit/:id", todo.EditTodoForm)
+	r.POST("/update/:id", todo.UpdateTodo)
 	r.Run(":8080")
 }
